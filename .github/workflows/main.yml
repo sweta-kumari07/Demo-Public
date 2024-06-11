@@ -45,7 +45,7 @@ jobs:
       with:
         name: artifacts
         
-      - name: Publish to Exchange
+    - name: Publish to Exchange
         run: |
           mvn deploy --settings .maven/settings.xml -DskipMunitTests \
           -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
