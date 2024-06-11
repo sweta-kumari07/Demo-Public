@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="ab70b3a1-67fc-4aed-be63-dd8bcfb9fa74" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="demo-projectFlow" doc:id="67e4f6a1-b674-41dd-9cbc-caba50b05cde" >
+		<http:listener doc:name="Listener" doc:id="8c8e0caa-34c1-412f-9182-865406954352" config-ref="HTTP_Listener_config" path="/demo"/>
+		<logger level="INFO" doc:name="Start Logger" doc:id="0f6ea1e2-0009-4691-8858-c7ff8fc92a09" message="Start Logger"/>
+		<set-payload value='#["It worked!!"]' doc:name="Set Payload" doc:id="4311f10c-fa16-4704-b812-9250ec93dd9f" />
+		<logger level="INFO" doc:name="Payload Logger" doc:id="b4634484-b65f-40e7-9698-f6ccc7439765" message="#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="6e2a4f46-e5a8-4d1d-8478-69d9b5cd65ba" message="End Logger"/>
+	</flow>
+</mule>
