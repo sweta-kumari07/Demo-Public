@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     
-jobs:
-  build:
+jobs:    
+  buildAndDeploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout this repo
@@ -45,10 +45,11 @@ jobs:
       with:
         name: artifacts
         
-    - name: Publish to Exchange
-      run: |
-        artifactName=$(ls *.jar | head -1)
-        mvn clean deploy -s .maven/settings.xml -DskipTests -Dmule.artifact=$artifactName          
+      - name: Publish to Exchange
+        run: |
+          mvn deploy --settings .maven/settings.xml -DskipMunitTests \
+          -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
+          -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}"         
       
       - name: Deploy to CloudHub 2.0
         run: |
